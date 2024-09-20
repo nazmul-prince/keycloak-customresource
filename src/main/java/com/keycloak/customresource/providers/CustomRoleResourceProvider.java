@@ -2,6 +2,7 @@ package com.keycloak.customresource.providers;
 
 import com.keycloak.customresource.auth.Authenticator;
 import com.keycloak.customresource.model.RolesModel;
+import com.keycloak.customresource.services.CustomAssignedRoleCacheService;
 import com.keycloak.customresource.services.CustomRoleProviderService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -50,11 +51,21 @@ public class CustomRoleResourceProvider implements RealmResourceProvider {
     }
 
     @GET
+    @Path("/users/{userId}/roles/names-with-custom-query-cached")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RolesModel getRolesNameByUserIdCached(@PathParam("userId") String userId) {
+        log.info("Getting roles name for user Id: " + userId);
+//        Authenticator.INSTANCE.authenticate(keycloakSession);
+        final var rolesNamesByUserId = customRoleProvider.getRolesNamesByUserId(userId);
+        return rolesNamesByUserId;
+    }
+
+    @GET
     @Path("/users/{userId}/roles/names-without-custom-query")
     @Produces(MediaType.APPLICATION_JSON)
     public RolesModel getRolesNameByUserIdWithoutCustomQuery(@PathParam("userId") String userId) {
         log.info("Getting roles name for user Id: " + userId);
-        Authenticator.INSTANCE.authenticate(keycloakSession);
+//        Authenticator.INSTANCE.authenticate(keycloakSession);
         final var rolesNamesByUserId = customRoleProvider.findRolesNamesByUserIdWithOutCustomQuery(userId);
         return rolesNamesByUserId;
     }

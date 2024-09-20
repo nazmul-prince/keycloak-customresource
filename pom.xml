@@ -20,7 +20,7 @@
 		<!-- these should be updated together with Keycloak -->
 		<!-- check keycloak-dependencies-server-all effective pom -->
 		<resteasy.version>6.2.4.Final</resteasy.version>
-		<infinispan.common.version>14.0.10.Final</infinispan.common.version>
+		<infinispan.version>15.0.8.Final</infinispan.version>
 <!--		<h2.version>1.4.200</h2.version>-->
 	</properties>
 
@@ -82,7 +82,7 @@
 <!--		<dependency>-->
 <!--			<groupId>org.infinispan</groupId>-->
 <!--			<artifactId>infinispan-commons</artifactId>-->
-<!--			<version>${infinispan.common.version}</version>-->
+<!--			<version>${infinispan.version}</version>-->
 <!--		</dependency>-->
 
 		<dependency>
@@ -91,6 +91,28 @@
 			<version>${keycloak.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-core -->
+<!--		<dependency>-->
+<!--			<groupId>org.infinispan</groupId>-->
+<!--			<artifactId>infinispan-core</artifactId>-->
+<!--			<version>${infinispan.version}</version>-->
+<!--		</dependency>-->
+
+		<!-- Keycloak Core for internal operations (be cautious with this) -->
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-model-infinispan</artifactId>
+			<version>${keycloak.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+<!--		<dependency>-->
+<!--			<groupId>org.infinispan</groupId>-->
+<!--			<artifactId>infinispan-commons</artifactId>-->
+<!--			<version>${infinispan.version}</version>-->
+<!--		</dependency>-->
+
 
 		<!-- https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api -->
 		<dependency>
@@ -119,7 +141,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>2.0.16</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

@@ -1,6 +1,8 @@
 package com.keycloak.customresource;
 
+import com.keycloak.customresource.services.CustomAssignedRoleCacheService;
 import com.keycloak.customresource.services.CustomRoleProviderService;
+import com.keycloak.customresource.services.impls.CustomAssignedRoleCacheServiceImpl;
 import com.keycloak.customresource.services.impls.CustomRoleProviderServiceImpl;
 import com.keycloak.customresource.repositories.CustomRoleRepository;
 import com.keycloak.customresource.repositories.impls.CustomRoleRepositoryImpl;
@@ -42,8 +44,12 @@ public class CustomRoleResourceProviderFactory implements RealmResourceProviderF
     }
 
 	public CustomRoleProviderService customRoleProvider(KeycloakSession session) {
-		return new CustomRoleProviderServiceImpl(customRoleRepository(session));
+		return new CustomRoleProviderServiceImpl(customRoleRepository(session), customAssignedRoleCacheService(session));
 	}
+
+    public CustomAssignedRoleCacheService customAssignedRoleCacheService(KeycloakSession session) {
+        return new CustomAssignedRoleCacheServiceImpl(session);
+    }
 
 	public CustomRoleRepository customRoleRepository(KeycloakSession session) {
 		return new CustomRoleRepositoryImpl(session);
